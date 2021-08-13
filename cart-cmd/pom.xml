@@ -16,6 +16,7 @@
   <properties>
     <java.version>16</java.version>
     <spring-cloud.version>2020.0.3</spring-cloud.version>
+    <axon.version>4.5.3</axon.version>
   </properties>
 
   <dependencyManagement>
@@ -27,10 +28,36 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+
+      <dependency>
+        <groupId>org.axonframework</groupId>
+        <artifactId>axon-bom</artifactId>
+        <version>${axon.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
   <dependencies>
+    <dependency>
+      <groupId>org.axonframework</groupId>
+      <artifactId>axon-spring-boot-starter</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.axonframework</groupId>
+      <artifactId>axon-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <!--makes axon compatible with eureka src: https://discuss.axoniq.io/t/axon-application-as-eureka-client/3095-->
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>30.0-android</version>
+    </dependency>
+
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
@@ -46,6 +73,8 @@
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
     </dependency>
+
+
   </dependencies>
 
   <build>
