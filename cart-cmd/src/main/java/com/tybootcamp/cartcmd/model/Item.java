@@ -12,7 +12,7 @@ public class Item {
 
   private Integer quantity;
 
-  private Integer price; // in cents
+  private Integer price; // for unit in cents
 
   public Item(String productId) {
     this.productId = productId;

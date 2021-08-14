@@ -1,11 +1,11 @@
-package com.tybootcamp.cartcmd.event;
+package event;
 
 import java.util.Objects;
 
 /**
  * @author meverg
  */
-public final class CartCreatedEvent {
+public class CartCreatedEvent {
 
   private final String cartId;
 

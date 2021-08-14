@@ -2,8 +2,8 @@ package com.tybootcamp.cartcmd.model;
 
 import com.tybootcamp.cartcmd.command.AddItemToCartCommand;
 import com.tybootcamp.cartcmd.command.CreateCartCommand;
-import com.tybootcamp.cartcmd.event.CartCreatedEvent;
-import com.tybootcamp.cartcmd.event.ItemAddedToCartEvent;
+import event.CartCreatedEvent;
+import event.ItemAddedToCartEvent;
 import java.util.HashMap;
 import java.util.Map;
 import org.axonframework.commandhandling.CommandHandler;
@@ -37,6 +37,7 @@ public class CartAggregate {
 
   @CommandHandler
   public CartAggregate(CreateCartCommand command) {
+    // todo check if customer has active cart
     apply(new CartCreatedEvent(command.getCartId(), command.getCustomerId()));
   }
 
@@ -69,7 +70,7 @@ public class CartAggregate {
     } else {
       Item addingItem = new Item(productId);
       addingItem.setQuantity(addingQuantity);
-      // addingItem.setPrice(get price from the stock service)
+      // todo addingItem.setPrice(get price from the stock service)
       items.put(productId, addingItem);
     }
   }

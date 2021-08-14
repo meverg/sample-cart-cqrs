@@ -1,4 +1,4 @@
-package com.tybootcamp.cartcmd.event;
+package event;
 
 import java.util.Objects;
 
