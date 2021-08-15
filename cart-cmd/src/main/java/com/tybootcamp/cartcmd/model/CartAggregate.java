@@ -6,6 +6,7 @@ import event.cart.CartCreatedEvent;
 import event.cart.ItemAddedToCartEvent;
 import java.util.HashMap;
 import java.util.Map;
+import model.Product;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
@@ -47,7 +48,7 @@ public class CartAggregate {
       throw new Exception();// todo correct exception
     }
     // todo check product available qty
-    apply(new ItemAddedToCartEvent(command.getCartId(), command.getProductId(), command.getQuantity()));
+    apply(new ItemAddedToCartEvent(command.getCartId(), command.getProduct(), command.getQuantity()));
   }
 
   @EventSourcingHandler
@@ -61,15 +62,15 @@ public class CartAggregate {
   @EventSourcingHandler
   // todo refactor
   public void on(ItemAddedToCartEvent event) {
-    String productId = event.getProductId();
+    Product product = event.getProduct();
+    String productId = product.getId();
     Item cartItem = items.get(productId);
     Integer addingQuantity = event.getQuantity();
     if (nonNull(cartItem)) {
       cartItem.setQuantity(cartItem.getQuantity() + addingQuantity);
       items.put(productId, cartItem);
     } else {
-      Item addingItem = new Item(productId, 0); // todo correct price
-      addingItem.setQuantity(addingQuantity);
+      Item addingItem = new Item(productId, addingQuantity, product.getPrice());
       items.put(productId, addingItem);
     }
   }

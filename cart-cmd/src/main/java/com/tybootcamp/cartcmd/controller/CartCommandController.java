@@ -1,11 +1,15 @@
 package com.tybootcamp.cartcmd.controller;
 
+import com.tybootcamp.cartcmd.client.StockQueryServiceClient;
 import com.tybootcamp.cartcmd.command.AddItemToCartCommand;
 import com.tybootcamp.cartcmd.command.CreateCartCommand;
 import com.tybootcamp.cartcmd.request.AddItemRequest;
 import com.tybootcamp.cartcmd.request.CreateCartRequest;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
+import model.Product;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,8 +25,12 @@ public class CartCommandController {
 
   private final CommandGateway commandGateway;
 
-  public CartCommandController(CommandGateway commandGateway) {
+  private final StockQueryServiceClient stockClient;
+
+  public CartCommandController(CommandGateway commandGateway,
+                               StockQueryServiceClient stockClient) {
     this.commandGateway = commandGateway;
+    this.stockClient = stockClient;
   }
 
   @PostMapping()
@@ -34,9 +42,12 @@ public class CartCommandController {
   }
 
   @PostMapping("item")
-  public CompletableFuture<Object> addItemToCart(@RequestBody AddItemRequest request) {
+  public CompletableFuture<Object> addItemToCart(@RequestBody AddItemRequest request)
+      throws ExecutionException, InterruptedException, TimeoutException {
+    // todo separate add item and increase item
+    Product product = stockClient.getProductById(request.productId());
     AddItemToCartCommand addItemToCartCommand = new AddItemToCartCommand(request.cartId(),
-                                                                         request.productId(),
+                                                                         product,
                                                                          request.quantity());
     return commandGateway.send(addItemToCartCommand);
   }

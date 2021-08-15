@@ -8,6 +8,7 @@ import event.cart.ItemAddedToCartEvent;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import model.Product;
 import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.springframework.stereotype.Service;
@@ -38,16 +39,20 @@ public class CartEventHandler {
     if (optionalCart.isPresent()) {
       Cart cart = optionalCart.get();
       Map<String, Item> items = cart.getItems();
-      Item itemInCart = items.get(event.getProductId());
+      Product product = event.getProduct();
+      Item itemInCart = items.get(product.getId());
       //
       if (Objects.nonNull(itemInCart)) {
         itemInCart.setQuantity(itemInCart.getQuantity() + event.getQuantity());
         items.put(itemInCart.getProductId(), itemInCart); // todo is needed?
       } else {
         Item addingItem = new Item();
-        addingItem.setProductId(event.getProductId());
+        addingItem.setProductId(product.getId());
         addingItem.setQuantity(event.getQuantity());
-        // todo get and set product price
+        addingItem.setPrice(product.getPrice());
+        addingItem.setTitle(product.getTitle());
+        addingItem.setImageUrl(product.getImageUrl());
+        addingItem.setPriceWhenAddedToCart(product.getPrice());
         items.put(addingItem.getProductId(), addingItem);
       }
       cart.setItems(items); // todo is needed?

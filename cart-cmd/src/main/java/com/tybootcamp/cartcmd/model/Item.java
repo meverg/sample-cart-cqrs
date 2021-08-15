@@ -14,8 +14,9 @@ public class Item {
 
   private final Integer priceWhenAddedToCart; // for unit in cents
 
-  public Item(String productId, Integer priceWhenAddedToCart) {
+  public Item(String productId, Integer quantity, Integer priceWhenAddedToCart) {
     this.productId = productId;
+    this.quantity = quantity;
     this.priceWhenAddedToCart = priceWhenAddedToCart;
   }
 

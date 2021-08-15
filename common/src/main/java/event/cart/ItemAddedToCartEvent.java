@@ -1,6 +1,7 @@
 package event.cart;
 
 import java.util.Objects;
+import model.Product;
 
 /**
  * @author meverg
@@ -9,13 +10,13 @@ public class ItemAddedToCartEvent {
 
   private final String cartId;
 
-  private final String productId;
+  private final Product product;
 
   private final Integer quantity;
 
-  public ItemAddedToCartEvent(String cartId, String productId, Integer quantity) {
+  public ItemAddedToCartEvent(String cartId, Product product, Integer quantity) {
     this.cartId = cartId;
-    this.productId = productId;
+    this.product = product;
     this.quantity = quantity;
   }
 
@@ -23,8 +24,8 @@ public class ItemAddedToCartEvent {
     return cartId;
   }
 
-  public String getProductId() {
-    return productId;
+  public Product getProduct() {
+    return product;
   }
 
   public Integer getQuantity() {
@@ -36,18 +37,18 @@ public class ItemAddedToCartEvent {
     if (o == null || getClass() != o.getClass()) return false;
     ItemAddedToCartEvent that = (ItemAddedToCartEvent) o;
     return Objects.equals(cartId, that.cartId)
-           && Objects.equals(productId, that.productId)
+           && Objects.equals(product, that.product)
            && Objects.equals(quantity, that.quantity);
   }
 
   @Override public int hashCode() {
-    return Objects.hash(cartId, productId, quantity);
+    return Objects.hash(cartId, product, quantity);
   }
 
   @Override public String toString() {
     return "ItemAddedToCartEvent{" +
            "cartId='" + cartId + '\'' +
-           ", productId='" + productId + '\'' +
+           ", product=" + product +
            ", quantity=" + quantity +
            '}';
   }

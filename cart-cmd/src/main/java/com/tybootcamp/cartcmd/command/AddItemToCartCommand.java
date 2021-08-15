@@ -1,6 +1,7 @@
 package com.tybootcamp.cartcmd.command;
 
 import java.util.Objects;
+import model.Product;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
 /**
@@ -11,13 +12,13 @@ public class AddItemToCartCommand {
   @TargetAggregateIdentifier
   private final String cartId;
 
-  private final String productId;
+  private final Product product;
 
   private final Integer quantity;
 
-  public AddItemToCartCommand(String cartId, String productId, Integer quantity) {
+  public AddItemToCartCommand(String cartId, Product product, Integer quantity) {
     this.cartId = cartId;
-    this.productId = productId;
+    this.product = product;
     this.quantity = quantity;
   }
 
@@ -25,8 +26,8 @@ public class AddItemToCartCommand {
     return cartId;
   }
 
-  public String getProductId() {
-    return productId;
+  public Product getProduct() {
+    return product;
   }
 
   public Integer getQuantity() {
@@ -38,18 +39,18 @@ public class AddItemToCartCommand {
     if (o == null || getClass() != o.getClass()) return false;
     AddItemToCartCommand that = (AddItemToCartCommand) o;
     return Objects.equals(cartId, that.cartId)
-           && Objects.equals(productId, that.productId)
+           && Objects.equals(product, that.product)
            && Objects.equals(quantity, that.quantity);
   }
 
   @Override public int hashCode() {
-    return Objects.hash(cartId, productId, quantity);
+    return Objects.hash(cartId, product, quantity);
   }
 
   @Override public String toString() {
     return "AddItemToCartCommand{" +
            "cartId='" + cartId + '\'' +
-           ", productId='" + productId + '\'' +
+           ", product=" + product +
            ", quantity=" + quantity +
            '}';
   }
