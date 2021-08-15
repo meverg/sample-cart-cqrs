@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: notification
+  mail:
+    host: smtp.ethereal.email
+    port: 587
+    username: enrico.johnston5@ethereal.email
+    password: RpKA4m31BX1bkXF4T2
+    properties.mail.smtp.auth: true
+    properties.mail.smtp.starttls.enable: true
+
+server:
+  port: 8088

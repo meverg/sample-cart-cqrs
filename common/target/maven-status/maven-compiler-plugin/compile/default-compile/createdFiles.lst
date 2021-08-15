@@ -1,6 +1,7 @@
 event/product/ProductCreatedEvent.class
 event/cart/CartCreatedEvent.class
 model/Product.class
-event/product/ProductQuantityChangedEvent.class
 event/product/ProductPriceChangedEvent.class
+event/product/ProductQuantityChangedEvent.class
+event/notification/NotificationEvent.class
 event/cart/ItemAddedToCartEvent.class
