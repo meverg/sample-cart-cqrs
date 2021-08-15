@@ -12,18 +12,11 @@ public class Item {
 
   private Integer quantity;
 
-  private Integer price; // for unit in cents
+  private final Integer priceWhenAddedToCart; // for unit in cents
 
-  public Item(String productId) {
+  public Item(String productId, Integer priceWhenAddedToCart) {
     this.productId = productId;
-  }
-
-  public Integer getPrice() {
-    return price;
-  }
-
-  public void setPrice(Integer price) {
-    this.price = price;
+    this.priceWhenAddedToCart = priceWhenAddedToCart;
   }
 
   public Integer getQuantity() {
@@ -36,5 +29,9 @@ public class Item {
 
   public String getProductId() {
     return productId;
+  }
+
+  public Integer getPriceWhenAddedToCart() {
+    return priceWhenAddedToCart;
   }
 }

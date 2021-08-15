@@ -1,4 +1,4 @@
-package event;
+package event.cart;
 
 import java.util.Objects;
 

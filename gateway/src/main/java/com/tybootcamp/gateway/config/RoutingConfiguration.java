@@ -25,6 +25,16 @@ public class RoutingConfiguration {
                                .and()
                                .method(HttpMethod.GET)
                                .uri("lb://CART-QRY"))
+                  .route("product command routing",
+                         r -> r.path("/product/**")
+                               .and()
+                               .method(HttpMethod.POST, HttpMethod.PUT)
+                               .uri("lb://STOCK-CMD"))
+                  .route("product query routing",
+                         r -> r.path("/product/**")
+                               .and()
+                               .method(HttpMethod.GET)
+                               .uri("lb://STOCK-QRY"))
                   .build();
   }
 }

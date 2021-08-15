@@ -1,4 +1,4 @@
-package event;
+package event.cart;
 
 import java.util.Objects;
 
@@ -10,10 +10,7 @@ public class CartCreatedEvent {
   private final String cartId;
 
   private final String customerId;
-
-  /**
-   *
-   */
+  
   public CartCreatedEvent(String cartId, String customerId) {
     this.cartId = cartId;
     this.customerId = customerId;

@@ -1,0 +1,5 @@
+event/product/ProductCreatedEvent.class
+event/cart/CartCreatedEvent.class
+event/product/ProductPriceChangedEvent.class
+event/product/ProductQuantityChangedEvent.class
+event/cart/ItemAddedToCartEvent.class

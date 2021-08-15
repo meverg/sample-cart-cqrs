@@ -25,12 +25,6 @@ public class CartCommandController {
     this.commandGateway = commandGateway;
   }
 
-  @RequestMapping("/hello")
-  public String hello() {
-    System.out.println("hello");
-    return "hello";
-  }
-
   @PostMapping()
   public CompletableFuture<Object> createCart(@RequestBody CreateCartRequest request) {
     String generatedCartId = UUID.randomUUID().toString();

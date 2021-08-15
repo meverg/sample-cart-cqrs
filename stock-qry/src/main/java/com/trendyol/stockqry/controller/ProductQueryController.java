@@ -1,7 +1,7 @@
-package com.tybootcamp.cartqry.controller;
+package com.trendyol.stockqry.controller;
 
-import com.tybootcamp.cartqry.entity.Cart;
-import com.tybootcamp.cartqry.query.FindActiveCartOfCustomerQuery;
+import com.trendyol.stockqry.entity.Product;
+import com.trendyol.stockqry.query.FindProductByIdQuery;
 import java.util.concurrent.CompletableFuture;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;
@@ -14,18 +14,18 @@ import org.springframework.web.bind.annotation.RestController;
  * @author meverg
  */
 @RestController
-@RequestMapping("cart")
-public class CartQueryController {
+@RequestMapping("product")
+public class ProductQueryController {
 
   private final QueryGateway queryGateway;
 
-  public CartQueryController(QueryGateway queryGateway) {
+  public ProductQueryController(QueryGateway queryGateway) {
     this.queryGateway = queryGateway;
   }
 
   @GetMapping
-  public CompletableFuture<Cart> getActiveCartOfCustomer(@RequestParam String customerId) {
-    FindActiveCartOfCustomerQuery query = new FindActiveCartOfCustomerQuery(customerId);
-    return queryGateway.query(query, ResponseTypes.instanceOf(Cart.class));
+  public CompletableFuture<Product> getProductById(@RequestParam String productId) {
+    FindProductByIdQuery query = new FindProductByIdQuery(productId);
+    return queryGateway.query(query, ResponseTypes.instanceOf(Product.class));
   }
 }
