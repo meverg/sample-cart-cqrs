@@ -5,9 +5,12 @@ import com.tybootcamp.cartqry.entity.Item;
 import com.tybootcamp.cartqry.repository.CartRepository;
 import event.cart.CartCreatedEvent;
 import event.cart.ItemAddedToCartEvent;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import model.Product;
 import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventsourcing.EventSourcingHandler;
@@ -38,7 +41,8 @@ public class CartEventHandler {
     Optional<Cart> optionalCart = repository.findById(event.getCartId());
     if (optionalCart.isPresent()) {
       Cart cart = optionalCart.get();
-      Map<String, Item> items = cart.getItems();
+      List<Item> itemList = cart.getItems();
+      Map<String, Item> items = itemList.stream().collect(Collectors.toMap(Item::getProductId, Function.identity()));
       Product product = event.getProduct();
       Item itemInCart = items.get(product.getId());
       //
@@ -55,7 +59,8 @@ public class CartEventHandler {
         addingItem.setPriceWhenAddedToCart(product.getPrice());
         items.put(addingItem.getProductId(), addingItem);
       }
-      cart.setItems(items); // todo is needed?
+      List<Item> updatedItems = items.values().stream().toList();
+      cart.setItems(updatedItems); // todo is needed?
       repository.save(cart);
     } else {
       throw new Exception(); // todo correct exception

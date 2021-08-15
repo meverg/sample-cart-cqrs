@@ -1,7 +1,7 @@
 package com.tybootcamp.cartqry.entity;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.couchbase.core.mapping.Document;
 import org.springframework.data.couchbase.core.mapping.Field;
@@ -19,7 +19,7 @@ public class Cart {
   private final String customerId;
 
   @Field
-  private Map<String, Item> items;
+  private List<Item> items;
 
   @Field
   private Boolean active;
@@ -27,7 +27,7 @@ public class Cart {
   public Cart(String id, String customerId) {
     this.id = id;
     this.customerId = customerId;
-    this.items = new HashMap<>();
+    this.items = new ArrayList<>();
     this.active = true;
   }
 
@@ -39,11 +39,11 @@ public class Cart {
     return customerId;
   }
 
-  public Map<String, Item> getItems() {
+  public List<Item> getItems() {
     return items;
   }
 
-  public void setItems(Map<String, Item> items) {
+  public void setItems(List<Item> items) {
     this.items = items;
   }
 

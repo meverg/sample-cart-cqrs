@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CartQueryController {
 
   private final QueryGateway queryGateway;
-
+  
   public CartQueryController(QueryGateway queryGateway) {
     this.queryGateway = queryGateway;
   }
